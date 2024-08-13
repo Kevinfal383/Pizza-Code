@@ -6,12 +6,12 @@
 
 body {
   background-image: url("images/bg.png");
-  font-family: "Holtwood One SC", serif;
 }
 
 .conteneur {
   width: 70%;
   margin: auto;
+  font-family: "Holtwood One SC", serif;
 }
 
 .header .titre h1 {
