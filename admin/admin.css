@@ -56,13 +56,75 @@ body {
    background: rgb(0, 80, 0);
 }
 
-.admin .tableau{
+/* .admin .tableau{
     margin-top: 10px;
-    /* border: 2px solid black; */
+    border: 2px solid black; 
 }
 
 .admin .tableau thead th{
-    /* border-left: 1px solid black; */
+    border-left: 1px solid black;
     border: 2px solid black;
     padding: 5px;
+} */
+
+.admin .tableau {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    text-align: left;
+}
+
+.admin .tableau thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+}
+
+.tableau th, .tableau td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #dddddd;
+}
+
+.tableau tbody tr {
+    border-bottom: 1px solid #dddddd;
+    transition: background-color 0.3s ease;
+}
+
+.tableau tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.tableau tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.tableau tbody td {
+    position: relative;
+}
+
+.tableau tbody td:last-child {
+    display: flex;
+    gap: 10px;
+}
+
+.tableau tbody button {
+    padding: 6px 12px;
+    background-color: #009879;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.tableau tbody button:hover {
+    background-color: #00795a;
+}
+
+.tableau tbody button:focus {
+    outline: none;
 }
