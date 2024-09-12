@@ -139,6 +139,7 @@
             outline: none;
         }
     </style>
+    
     <title>Pizza Code Admin</title>
 </head>
 
@@ -171,57 +172,31 @@
             </thead>
             <tbody>
                 <?php
-                    include 'database.php';
-                    $sql = "SELECT nom, description, prix, categorie FROM items";
-                    $statement = $conn->prepare($sql);
-                    $statement->execute();
+                    require 'database.php';
+                    $db = Database::connect();
+                    $statement = $db->query('SELECT items.id, items.nom, items.description, items.prix, categories.nom AS categorie
+                                            FROM items LEFT JOIN categories ON items.categorie = categories.id
+                                            ORDER BY items.id DESC');
 
-                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                        echo "<tr>";
-                        echo "<td>" . htmlspecialchars($row['nom']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['description']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['prix']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['type']) . "</td>";
-                        echo "</tr>";
+                    while($items = $statement->fetch())  //recupere une ligne
+                    {
+                        echo '<tr>';
+                        echo '<td>' . $items['nom'] . '</td>';
+                        echo '<td>' . $items['description'] . '</td>';
+                        echo '<td>' . $items['prix'].'$'. '</td>';
+                        echo '<td>' . $items['categorie'] . '</td>';
+                        
+                        echo '<td>';
+                            echo '<button><a href="voir.php?id=' . $items['id'] . '">Voir</a></button>';
+                            echo '<button><a href="modifier.php?id=' . $items['id'] . '">Modifier</a></button>';
+                            echo '<button><a href="supprimer.php?id=' . $items['id'] . '"></a>Supprimer</a></button>';
+                        echo '</td>';
+                        echo '</tr>';
+
                     }
 
-                    //AVERENO ny connection @ base de donner anao dia araho ilay tuto 
+
                 ?>
-
-                <tr>
-                    <td>Nom</td>
-                    <td>Sandwich: Burger, Salade, Tomate, Cornichon + Frit...</td>
-                    <td>8.50</td>
-                    <td>Menu</td>
-                    <td>
-                        <button><a href="voir.php">Voir</a></button>
-                        <button><a href="modifier.php">Modifier</a></button>
-                        <button><a href="supprimer.php">Supprimer</a></button>
-                    </td>
-                </tr>
-                <tr> 
-                    <td>Nom</td>
-                    <td>Sandwich: Burger, Salade, Tomate, Cornichon + Frit...</td>
-                    <td>8.50</td>
-                    <td>Menu</td>
-                    <td>
-                        <button><a href="voir.php">Voir</a></button>
-                        <button><a href="modifier.php">Modifier</a></button>
-                        <button><a href="supprimer.php">Supprimer</a></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Nom</td>
-                    <td>Sandwich: Burger, Salade, Tomate, Cornichon + Frit...</td>
-                    <td>8.50</td>
-                    <td>Menu</td>
-                    <td>
-                        <button><a href="voir.php">Voir</a></button>
-                        <button><a href="modifier.php">Modifier</a></button>
-                        <button><a href="supprimer.php">Supprimer</a></button>
-                    </td>
-                </tr>
-
             </tbody>
         </table>
     </div>
