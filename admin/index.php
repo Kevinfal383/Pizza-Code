@@ -65,24 +65,14 @@
             background: rgb(0, 80, 0);
         }
 
-        /* .admin .tableau{
-    margin-top: 10px;
-    border: 2px solid black; 
-}
-
-.admin .tableau thead th{
-    border-left: 1px solid black;
-    border: 2px solid black;
-    padding: 5px;
-} */
+        .admin .tableau thead th{
+            border: 2px solid white;
+        }
 
         .admin .tableau {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
-            font-size: 16px;
-            font-family: Arial, sans-serif;
-            text-align: left;
         }
 
         .admin .tableau thead tr {
@@ -124,7 +114,6 @@
             padding: 6px 12px;
             background-color: #009879;
             border: none;
-            color: white;
             border-radius: 4px;
             cursor: pointer;
             font-size: 14px;
@@ -133,6 +122,11 @@
 
         .tableau tbody button:hover {
             background-color: #00795a;
+        }
+
+        .tableau tbody button a{
+            color: white;
+            text-decoration: none;
         }
 
         .tableau tbody button:focus {
@@ -183,18 +177,18 @@
                         echo '<tr>';
                         echo '<td>' . $items['nom'] . '</td>';
                         echo '<td>' . $items['description'] . '</td>';
-                        echo '<td>' . $items['prix'].'$'. '</td>';
+                        echo '<td>' . number_format((float)$items['prix'],2, '.', '') . '£'. '</td>';
                         echo '<td>' . $items['categorie'] . '</td>';
                         
                         echo '<td>';
                             echo '<button><a href="voir.php?id=' . $items['id'] . '">Voir</a></button>';
                             echo '<button><a href="modifier.php?id=' . $items['id'] . '">Modifier</a></button>';
-                            echo '<button><a href="supprimer.php?id=' . $items['id'] . '"></a>Supprimer</a></button>';
+                            echo '<button><a href="supprimer.php?id=' . $items['id'] . '">Supprimer</a></button>';
                         echo '</td>';
                         echo '</tr>';
 
                     }
-
+                    Database::disconnect();
 
                 ?>
             </tbody>
