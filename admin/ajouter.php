@@ -1,0 +1,82 @@
+<?php
+    require 'database.php';
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="../fontawesome/css/all.css">
+    <title>Pizza Code Admin Ajouter</title>
+</head>
+
+<body>
+    <div class="header">
+        <div class="titre">
+            <h1><i class="fas fa-utensils"></i> <span>PIZZA CODE</span> <i class="fas fa-utensils"></i></h1>
+        </div>
+    </div>
+
+    <div class="admin">
+        <div class="titre">
+            <h1><strong>Ajouter un element elements</strong></h1>
+            <div class="ajouter">
+                <button><i class="fas fa-add"></i> Ajouter</button>
+            </div>
+        </div>
+
+        <form action="ajouter.php" role="form" method="post" enctype="multipart/form-data">     <!-- enctype: pour inserer l'image -->
+            <div class="champ"> 
+                <label for="nom">Nom:</label>
+                <input type="text" id="nom" name="nom" placeholder="Nom" value="<?php echo $nom; ?>">
+                <span class="erreur"><?php echo $nomErreur; ?></span>
+            </div>
+            <div class="champ">
+                <label for="description">Description:</label>
+                <input type="text" id="description" name="description" placeholder="Description" value="<?php echo $description; ?>">
+                <span class="erreur"><?php echo $descriptionErreur; ?></span>
+            </div>
+            <div class="champ">
+                <label for="prix">Prix: (en $)</label>
+                <input type="number" step="0.01" id="prix" name="prix" placeholder="Prix" value="<?php echo $prix; ?>">
+                <span class="erreur"><?php echo $prixErreur; ?></span>
+            </div>
+            <div class="champ">
+                <label for="categorie">Categorie:</label>
+                <select name="" id="categorie" name="categorie">
+                    <?php
+                        $db = Database::connect();
+                        foreach($db->query('SELECT * FROM categories') as $row)         //voici une autre maniere d'ecrire. Je pense que tu peut commême utiliser statement='REQUETTE'  
+                        {
+                            echo '<option value="' . $row['id'] .'">' .$row['nom'] . '</option>';
+                        }
+                        Database::disconnect();
+
+
+                    ?>
+                </select>
+                <span class="erreur"><?php echo $prixErreur; ?></span>
+            </div>
+            <div class="champ">
+                <label for="image">Selectionner une image</label>
+                <input type="file" id="image" name="image">
+                <span class="erreur"><?php echo $imageErreur; ?></span>
+            </div>
+        </form>
+
+        <div class="ajouter">
+            <button type="submit"><i class="fas fa-add"></i> Ajouter</button>
+        </div>
+        <div class="retour">
+            <button><a href="index.php">retour</a></button>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -129,4 +129,6 @@ body {
     outline: none;
 }
 
-
+form .erreur{
+    color: red;
+}

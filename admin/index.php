@@ -150,7 +150,7 @@
         <div class="titre">
             <h1><strong>Liste des elements</strong></h1>
             <div class="ajouter">
-                <button><i class="fas fa-add"></i> Ajouter</button>
+                <button><a href="ajouter.php"><i class="fas fa-add"></i>Ajouter</a></button>
             </div>
         </div>
 
