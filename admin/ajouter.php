@@ -1,5 +1,26 @@
 <?php
     require 'database.php';
+
+    $nomErreur = $descriptionErreur = $prixErreur = $categorieErreur = $imageErreur = $nom = $description = $prix = $categorie = $image = "";
+
+    if(!empty($_POST))
+    {
+        $nom                    = checkInput($_POST['nom']);
+        $description            = checkInput($_POST['description']);
+        $prix                   = checkInput($_POST['prix']);
+        $categorie              = checkInput($_POST['categorie']);
+        $image                  = checkInput($_FILES['image']['name']);
+    }
+
+
+    function checkInput($data){    //pour sécuriser l'input
+        $data = trim($data);                    //Supprime les espaces (ou autres caractères définis) en début et fin de chaîne.
+        $data = stripslashes($data);            //Supprime les antislashs () ajoutés par certaines fonctions pour échapper des caractères spéciaux (comme ' ou "). Cela protège contre l'ajout non désiré de slashes.
+        $data = htmlspecialchars($data);        //Convertit les caractères spéciaux en entités HTML (par exemple, < devient &lt;, > devient &gt;, etc.). Cela protège contre les attaques XSS (injections de code HTML ou JavaScript dans une page web).
+        return $data;
+    }
+
+
 ?>
 
 
@@ -47,7 +68,7 @@
             </div>
             <div class="champ">
                 <label for="categorie">Categorie:</label>
-                <select name="" id="categorie" name="categorie">
+                <select name="" id="categorie" name="categorie" value="<?php echo $categorie;?>">
                     <?php
                         $db = Database::connect();
                         foreach($db->query('SELECT * FROM categories') as $row)         //voici une autre maniere d'ecrire. Je pense que tu peut commême utiliser statement='REQUETTE'  
@@ -59,11 +80,11 @@
 
                     ?>
                 </select>
-                <span class="erreur"><?php echo $prixErreur; ?></span>
+                <span class="erreur"><?php echo $categorieErreur; ?></span>
             </div>
             <div class="champ">
                 <label for="image">Selectionner une image</label>
-                <input type="file" id="image" name="image">
+                <input type="file" id="image" name="image" value="<?php echo $image; ?>">
                 <span class="erreur"><?php echo $imageErreur; ?></span>
             </div>
         </form>
