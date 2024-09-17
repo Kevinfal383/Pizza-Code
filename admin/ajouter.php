@@ -10,6 +10,66 @@
         $prix                   = checkInput($_POST['prix']);
         $categorie              = checkInput($_POST['categorie']);
         $image                  = checkInput($_FILES['image']['name']);
+        $imagePath              = '../images' . basename($image);
+        $imageExtenssion        = pathinfo($imagePath, PATHINFO_EXTENSION);    //png ou gif ou gpg
+        $isSuccess              = true;
+        $isUploadSuccess        = false;
+
+        if(empty($nom)){
+            $nomErreur = 'Veuiller remplir ce champ.';
+            $isSuccess = false;
+        }
+        if(empty($description)){
+            $descriptionErreur = 'Veuiller remplir ce champ.';
+            $isSuccess = false;
+        }
+        if(empty($prix)){
+            $prixErreur = 'Veuiller remplir ce champ.';
+            $isSuccess = false;
+        }
+        if(empty($categorie)){
+            $categorieErreur = 'Veuiller remplir le champ.';
+            $isSuccess = false;
+        }
+        if(empty($image)){
+            $imageErreur = 'Ce champ ne peut pas etre vide';
+            $isSuccess = false;
+        }
+        else{
+            $isUploadSuccess = true;
+            if ($imageExtenssion != "jpg" && $imageExtenssion != "jpeg" && $imageExtenssion != "png" && $imageExtenssion != "gif")
+            {
+                $imageErreur = "Les fichiers autorisés sont: .jpg, .jpeg, .png, .gif";
+                $isUploadSuccess = false;
+            }
+            if(file_exists($imagePath))
+            {
+                $imageErreur = "Le fichier existe deja";
+                $isUploadSuccess = false;
+            }
+            if($_FILES['image']['size'] > 500000)
+            {
+                $imageErreur = "Le fichier ne doit pas depasser les 500KB";
+                $isUploadSuccess = false;
+            }
+            if($isUploadSuccess)
+            {
+                if(!move_uploaded_file($_FILES["image"]["tmp_name"], $imagePath))
+                {
+                    $imageErreur = "Il y a eu une erreur lors de l'upload";
+                    $isUploadSuccess = false;
+                }
+            }
+        }
+
+        if($isSuccess && $isUploadSuccess)
+        {
+            $db = Database::connect();
+            $statement = $db->prepare("INSERT INTO items (nom, description, prix, categorie, image) values(?, ?, ?, ?, ?)");
+            $statement->execute(array($nom, $description, $prix, $categorie, $image));
+            Database::disconnect();
+            header("Location: index.php");     //retourne à la page index.php
+        }
     }
 
 
@@ -87,14 +147,14 @@
                 <input type="file" id="image" name="image" value="<?php echo $image; ?>">
                 <span class="erreur"><?php echo $imageErreur; ?></span>
             </div>
-        </form>
 
-        <div class="ajouter">
-            <button type="submit"><i class="fas fa-add"></i> Ajouter</button>
-        </div>
-        <div class="retour">
-            <button><a href="index.php">retour</a></button>
-        </div>
+            <div class="ajouter">
+                <button type="submit"><i class="fas fa-add"></i> Ajouter</button>
+            </div>
+            <div class="retour">
+                <button><a href="index.php">retour</a></button>
+            </div>
+        </form>
 
     </div>
 
