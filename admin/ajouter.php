@@ -79,8 +79,6 @@
         $data = htmlspecialchars($data);        //Convertit les caractères spéciaux en entités HTML (par exemple, < devient &lt;, > devient &gt;, etc.). Cela protège contre les attaques XSS (injections de code HTML ou JavaScript dans une page web).
         return $data;
     }
-
-
 ?>
 
 
@@ -113,7 +111,7 @@
         <form action="ajouter.php" role="form" method="post" enctype="multipart/form-data">     <!-- enctype: pour inserer l'image -->
             <div class="champ"> 
                 <label for="nom">Nom:</label>
-                <input type="text" id="nom" name="nom" placeholder="Nom" value="<?php echo $nom; ?>">
+                <input type="text" id="nom" name="nom" placeholder="Nom" value="<?php echo $nom;?>" required>
                 <span class="erreur"><?php echo $nomErreur; ?></span>
             </div>
             <div class="champ">

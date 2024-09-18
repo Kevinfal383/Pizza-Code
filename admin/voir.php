@@ -120,7 +120,7 @@
                 <h1><strong>Voir les elements</strong></h1>
             </div>
 
-            <form action="">
+            <form>
                 <div class="info">
                     <label>Nom:</label><?php echo ' ' . $items['nom']; ?>
                 </div>
