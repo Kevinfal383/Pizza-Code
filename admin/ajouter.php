@@ -10,8 +10,8 @@
         $prix                   = checkInput($_POST['prix']);
         $categorie              = checkInput($_POST['categorie']);
         $image                  = checkInput($_FILES['image']['name']);
-        $imagePath              = '../images' . basename($image);
-        $imageExtenssion        = pathinfo($imagePath, PATHINFO_EXTENSION);    //png ou gif ou gpg
+        $imagePath              = '../images/' . basename($image);
+        $imageExtension        = pathinfo($imagePath, PATHINFO_EXTENSION);    //png ou gif ou gpg
         $isSuccess              = true;
         $isUploadSuccess        = false;
 
@@ -37,7 +37,7 @@
         }
         else{
             $isUploadSuccess = true;
-            if ($imageExtenssion != "jpg" && $imageExtenssion != "jpeg" && $imageExtenssion != "png" && $imageExtenssion != "gif")
+            if ($imageExtension != "jpg" && $imageExtension != "jpeg" && $imageExtension != "png" && $imageExtension != "gif")
             {
                 $imageErreur = "Les fichiers autorisés sont: .jpg, .jpeg, .png, .gif";
                 $isUploadSuccess = false;
@@ -126,7 +126,7 @@
             </div>
             <div class="champ">
                 <label for="categorie">Categorie:</label>
-                <select name="" id="categorie" name="categorie" value="<?php echo $categorie;?>">
+                <select id="categorie" name="categorie" value="<?php echo $categorie;?>">
                     <?php
                         $db = Database::connect();
                         foreach($db->query('SELECT * FROM categories') as $row)         //voici une autre maniere d'ecrire. Je pense que tu peut commême utiliser statement='REQUETTE'  
@@ -147,7 +147,7 @@
             </div>
 
             <div class="ajouter">
-                <button type="submit"><i class="fas fa-add"></i> Ajouter</button>
+                <button type="submit"><i class="fas fa-plus"></i> Ajouter</button>
             </div>
             <div class="retour">
                 <button><a href="index.php">retour</a></button>
