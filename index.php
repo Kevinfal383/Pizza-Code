@@ -14,7 +14,7 @@
     <div class="conteneur">
         <div class="header">
             <div class="titre">
-                <h1><i class="fas fa-utensils"></i> <span>PIZZA CODE</span> <i class="fas fa-utensils"></i></h1>
+                <h1><i class="fas fa-utensils"></i> <span>PIZZA CODES</span> <i class="fas fa-utensils"></i></h1>
             </div>
 
             <div class="navbar">
